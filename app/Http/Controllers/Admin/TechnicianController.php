@@ -146,6 +146,11 @@ class TechnicianController extends Controller
 //        $telnet = new TelnetClient('192.168.122.122', 2525);
 //        $telnet->connect();
 
+        $telnet = new TelnetClient($ip, 62234);
+        $telnet->connect();
+
+        dd($telnet);
+
         if ($API->connect($ip, $user, $pass)) {
             $user_on = $API->comm('/ppp/secret/print', array('?disabled' => 'no'));
             $user_active_on = $API->comm('/ppp/active/print');
