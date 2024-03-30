@@ -148,8 +148,15 @@ class TechnicianController extends Controller
 
         $telnet = new TelnetClient($ip, 62234);
         $telnet->connect();
+        $telnet->setPrompt('#'); //setRegexPrompt() to use a regex
+        //$telnet->setPruneCtrlSeq(true); //Enable this to filter out ANSI control/escape sequences
+        $telnet->login('admin', 'admin1234!');
 
-        dd($telnet);
+        $cmdResult = $telnet->exec('show pon power att gpon-onu_1/1/1:1');
+
+        $telnet->disconnect();
+
+        dd($cmdResult);
 
         if ($API->connect($ip, $user, $pass)) {
             $user_on = $API->comm('/ppp/secret/print', array('?disabled' => 'no'));
