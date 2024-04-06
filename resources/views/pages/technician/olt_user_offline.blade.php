@@ -25,7 +25,8 @@
                                     <th>USERNAME</th>
                                     <th>NOMOR SN</th>
                                     <th>LAST LOGGED OUT</th>
-{{--                                    <th>PORT</th>--}}
+                                    <th>PORT</th>
+                                    <th>STATUS</th>
                                 </tr>
                                 </thead>
                                 @if(count($notFoundData) > 0)
@@ -36,7 +37,8 @@
                                             <th>{{ $item['name'] }}</th>
                                             <th>{{ $item['password'] }}</th>
                                             <th>{{ $item['last-logged-out'] }}</th>
-{{--                                            <th>{{ $item['port'] }}</th>--}}
+                                            <th>{{ $item['port'] }}</th>
+                                            <th>{{ $item['status'] }}</th>
                                         </tr>
                                     @endforeach
                                     </tbody>

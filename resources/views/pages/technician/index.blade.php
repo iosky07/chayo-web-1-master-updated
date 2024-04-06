@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header_content">
-        <h1>{{ __('Cek Pelanggan') }}</h1>
+        <h1>{{ __('Cek Pelanggan Aktif') }}</h1>
 
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
@@ -28,37 +28,33 @@
                                     <th>ID</th>
                                     <th>USERNAME</th>
                                     <th>NOMOR SN</th>
+                                    <th>PORT</th>
                                     <th>UPTIME</th>
+                                    <th>STATUS</th>
+                                    <th>REDAMAN</th>
                                 </tr>
                                 </thead>
                                 @if($status == 'ada')
-                                    @if(!isset($result_act_conn))
-                                        <tbody>
-                                            <tr>
-                                                <th class="text-danger">PELANGGAN MASIH BELUM ON</th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                            </tr>
-                                        </tbody>
-                                    @else
-                                        <tbody>
+                                    <tbody>
+                                    @foreach($result_secret as $item)
                                         <tr>
                                             <th>ID1234</th>
-                                            <th>{{ $result_info[0] }}</th>
-                                            <th>{{ $result_info[1] }}</th>
-                                            @if($result_act_conn == [])
-                                                <th class="text-danger">OFFLINE</th>
-                                            @else
-                                                <th class="text-success">{{ $result_act_conn[1] }}</th>
-                                            @endif
+                                            <th>{{ $item['name'] }}</th>
+                                            <th>{{ $item['password'] }}</th>
+                                            <th>{{ $item['port'] }}</th>
+                                            <th>{{ $item['uptime'] }}</th>
+                                            <th>{{ $item['status'] }}</th>
+                                            <th>{{ $item['optic-score'] }}</th>
                                         </tr>
-                                        </tbody>
-                                    @endif
+                                    @endforeach
+                                    </tbody>
                                 @else
                                     <tbody>
                                     <tr>
                                         <th class="text-danger">PELANGGAN TIDAK DITEMUKAN</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                         <th></th>
                                         <th></th>
                                         <th></th>

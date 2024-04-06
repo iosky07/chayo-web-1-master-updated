@@ -17,24 +17,21 @@ class TechnicianForm extends Component
     public $search;
 
     protected $rules = [
-        'technician.sn' => 'required'
+        'technician.username' => 'required'
     ];
 
     protected $messages = [
-        'technician.sn.required' => 'Nomor SN tidak boleh kosong.'
+        'technician.username.required' => 'Nama Pelanggan tidak boleh kosong.'
     ];
 
     public function create()
     {
         $this->validate();
 
-
-//        dd($result_act_conn);
-
         $this->log = [
             'user_id' => Auth::id(),
             'access' => 'search',
-            'activity' => 'searching SN Number'
+            'activity' => 'checking secret uptime'
         ];
 
 //        dd($result_act_conn);
@@ -49,7 +46,7 @@ class TechnicianForm extends Component
 
 //        $this->emit('redirect', 'result_act_conn', 'result_info');
 //        return view('pages.technician.index', compact('result_act_conn', 'result_info'));
-        return redirect('admin/technician'.'/'.$this->technician['sn']);
+        return redirect('admin/technician'.'/'.$this->technician['username']);
     }
 
     public function render()
