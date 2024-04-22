@@ -31,7 +31,7 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->role == 1? 'Super Admin' : ($user->role == 2? 'Admin' : ($user->role == 3? 'KSK' : 'Penyusup')) }}</td>
+                    <td>{{ $user->role == 1? 'Super Admin' : ($user->role == 2? 'Admin' : ($user->role == 3? 'KSK' : 'Teknisi')) }}</td>
                     <td>{{ $user->created_at->format('d M Y H:i') }}</td>
                     <td class="whitespace-no-wrap row-action--icon">
                         <a role="button" href="user/edit/{{ $user->id }}" class="mr-3"><i class="fa fa-16px fa-pen"></i></a>

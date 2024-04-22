@@ -27,6 +27,7 @@
                     <option value="1">Super Admin</option>
                     <option value="2">Admin</option>
                     <option value="3">Sales</option>
+                    <option value="4">Teknisi</option>
                 </select>
                 <x-jet-input-error for="user.role" class="mt-2" />
             </div>

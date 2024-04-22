@@ -40,6 +40,7 @@ class TechnicianController extends Controller
 //            $identitas = $API->comm('/interface/pppoe-server/secret/print');
 //            $identitas = $API->comm('/interface/wireless/registration-table/print');
         } else {
+//            dd('cek1');
             return 'Koneksi Gagal';
         }
 
@@ -344,7 +345,9 @@ class TechnicianController extends Controller
         $prompt = '#';
         $cmdList = array();
         foreach ($notFoundData as $item) {
-            $cmdList[] = 'show gpon onu by sn ' . $item['password'];
+            if (strpos($item['password'], 'ZTE') !== 0 || strpos($item['password'], 'RTE') !== 0) {
+                $cmdList[] = 'show gpon onu by sn ' . $item['password'];
+            }
         }
 //        dd($cmdList);
 

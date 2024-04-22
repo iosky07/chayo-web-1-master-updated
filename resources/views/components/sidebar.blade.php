@@ -1,11 +1,17 @@
 @php
-use Illuminate\Support\Facades\Auth;$links = [
-    [
-        "href" => "admin.dashboard",
-        "text" => "Dashboard",
-        "is_multi" => false,
-    ]
+use Illuminate\Support\Facades\Auth;
+
+if (Auth::user()->role==1) {
+    $links = [
+        [
+            "href" => "admin.dashboard",
+            "text" => "Dashboard",
+            "is_multi" => false,
+        ]
     ];
+} else {
+    $links = [];
+}
 
 if (Auth::user()->role==1) {
     $add =
@@ -128,6 +134,24 @@ if (Auth::user()->role==1) {
         "is_multi" => true,
     ];
         array_push($links, $add);
+    } else if (Auth::user()->role==4) {
+    $add = [
+        "href" =>
+        [
+            [
+               "section_text" => "Teknisi",
+               "section_icon" => "fa fa-users",
+               "section_list" => [
+                   ["href" => "admin.technician.index", "text" => "Cek Uptime"],
+                   ["href" => "admin.olt_user_offline", "text" => "Cek Offline"],
+               ]
+            ]
+        ],
+            "text" => "Teknisi",
+            "is_multi" => true,
+        ];
+        array_push($links, $add);
+
     }
 
     $navigation_links = array_to_object($links);

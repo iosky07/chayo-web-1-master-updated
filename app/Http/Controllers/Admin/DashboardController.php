@@ -10,18 +10,21 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Borisuu\Telnet\TelnetClient;
+use Illuminate\Support\Facades\Auth;
+
 //use phpseclib3\Net\SSH2;
 
 class DashboardController extends Controller
 {
-    public function index() {
+    public function index()
+    {
 
         $customer = Customer::all()->count();
         $sum_total_bill = Customer::sum('total_bill');
 
         $month_total_bill = [];
         $invoices = Invoice::whereStatus('unpaid')->orderBy('selected_date', 'asc')->get();
-        for ($month = 0; $month <= $invoices->count()-1; $month++) {
+        for ($month = 0; $month <= $invoices->count() - 1; $month++) {
 //            dd($invoices->pluck('customer_id')[$month]);
             $temp = [];
             $temp[] = Carbon::parse($invoices->pluck('selected_date')[$month])->translatedFormat('F Y');
@@ -55,14 +58,14 @@ class DashboardController extends Controller
         $values = array_column($subset, 1);
         $prev_month_i = array_sum($values);
 
-        $subset = array_slice($invoice_months, 0, $this_month_index_i+1);
+        $subset = array_slice($invoice_months, 0, $this_month_index_i + 1);
         $values = array_column($subset, 1);
         $sum_month_i = array_sum($values);
 
         #logika payments
         $month_total_payment = [];
         $payments = Payment::whereStatus('accept')->orderBy('updated_at', 'asc')->get();
-        for ($month = 0; $month <= $payments->count()-1; $month++) {
+        for ($month = 0; $month <= $payments->count() - 1; $month++) {
             $temp = [];
             $temp[] = Carbon::parse($payments->pluck('updated_at')[$month])->translatedFormat('F Y');
             $temp[] = $payments->pluck('nominal')[$month];
@@ -95,10 +98,14 @@ class DashboardController extends Controller
         $values = array_column($subset, 1);
         $prev_month_p = array_sum($values);
 
-        $subset = array_slice($payment_months, 0, $this_month_index_p+1);
+        $subset = array_slice($payment_months, 0, $this_month_index_p + 1);
         $values = array_column($subset, 1);
         $sum_month_p = array_sum($values);
 
-        return view('dashboard', compact('customer', 'sum_total_bill', 'invoice_months', 'this_month_index_i', 'prev_month_i', 'sum_month_i', 'payment_months', 'this_month_index_p', 'prev_month_p', 'sum_month_p'));
+        if (Auth::user()->role == 1) {
+            return view('dashboard', compact('customer', 'sum_total_bill', 'invoice_months', 'this_month_index_i', 'prev_month_i', 'sum_month_i', 'payment_months', 'this_month_index_p', 'prev_month_p', 'sum_month_p'));
+        } elseif (Auth::user()->role == 4) {
+            return redirect(route('admin.technician'));
+        }
     }
 }

@@ -42,9 +42,16 @@ Route::get('/register',function (){
     return redirect(route('login'));
 });
 
-Route::get('/dashboard', function () {
-    return redirect(route('admin.dashboard'));
-});
+//Route::get('/dashboard', function () {
+//    return redirect(route('admin.dashboard'));
+//});
+//if (Auth::user() == 1) {
+//    Route::get('/dashboard', function () {
+//        return redirect(route('admin.dashboard'));
+//    });
+//} else {
+//    Route::get('/technician', [DashboardController::class, 'index'])->name('dashboard');
+//}
 
 Route::get('/', [SiteController::class, 'home'])->name('home');
 
